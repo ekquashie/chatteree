@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+    }
+
+    html,
+    body,#app {
+        max-width: 100vw;
+        width: 100%;
+        height: 100%;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply text-blackPearl font-semibold;
+    }
+
+    h1 {
+        @apply text-[2rem];
+    }
+
+    h2 {
+        @apply text-2xl;
+    }
+
+    h3 {
+        @apply text-lg;
+    }
+
+    h4 {
+        @apply text-base;
+    }
+
+    h5 {
+        @apply text-sm;
+    }
+
+    h6 {
+        @apply text-xs;
+    }
+}
+
+@layer components {
+    .thin {
+        @apply mt-4 font-thin text-[#79838B] text-sm
+    }
+
+    .input {
+        @apply bg-[#F7F7F7] rounded-[40px] h-12 w-full py-4 px-6
+    }
+
+    .btn {
+        @apply bg-blackPearl text-textYellow rounded-[32px] py-4 px-6;
+    }
+
+}
+
+@layer utilities {
+
+}
