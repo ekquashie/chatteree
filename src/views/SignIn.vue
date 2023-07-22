@@ -30,6 +30,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { string } from 'yup'
+import { URLS } from '../constants/routes'
 // Components Import
 import ChattereeLogo from '../components/ChattereeLogo.vue'
 import SubmitButton from '../components/SubmitButton.vue'
@@ -58,7 +59,7 @@ async function sendOtp (): Promise<void> {
   const error = await validateEmail()
   // If email is valid, send otp and route to otp page
   if (!error) {
-    await router.push({ path: '/otp', query: { q: btoa(email.value) } })
+    await router.push({ path: URLS.otp, query: { q: btoa(email.value) } })
   }
 }
 </script>

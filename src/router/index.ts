@@ -5,14 +5,15 @@ import Otp from "../views/Otp.vue"
 import ChattereeId from "../views/ChattereeId.vue"
 import Profile from "../views/Profile.vue"
 import Chat from "../views/Chat.vue"
+import { URLS } from '../constants/routes'
 
 // Define routes
 const routes = [
-  { path: '/', component: SignIn },
-  { path: '/otp', component: Otp },
-  { path: '/chatteree-id', component: ChattereeId },
-  { path: '/profile', component: Profile },
-  { path: '/chat', component: Chat },
+  { path: URLS.signIn, component: SignIn },
+  { path: URLS.otp, component: Otp },
+  { path: URLS.chattereeId, component: ChattereeId },
+  { path: URLS.profile, component: Profile },
+  { path: URLS.chat, component: Chat },
 ]
 
 const router = createRouter({

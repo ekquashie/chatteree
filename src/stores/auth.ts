@@ -5,7 +5,7 @@ interface State {
   user: UserInfo,
 }
 
-export const useAuthStore = defineStore('store', {
+export const useAuthStore = defineStore('auth-store', {
   state: (): State => ({
     otp: '012345',
     user: {
@@ -17,20 +17,20 @@ export const useAuthStore = defineStore('store', {
   }),
 
   getters: {
-    getProfilePicture: (state) => URL.createObjectURL(state.user.profilePicture)
+    getProfilePicture: (state): string => URL.createObjectURL(state.user.profilePicture)
   },
 
   actions: {
-    updateEmail(payload: string) {
+    updateEmail(payload: string): void {
       this.user.email = payload
     },
-    updateChattereeId(payload: string) {
+    updateChattereeId(payload: string): void {
       this.user.email = payload
     },
-    updateName(payload: string) {
-      this.user.name
+    updateName(payload: string): void {
+      this.user.name = payload
     },
-    updateProfilePicture(payload: Blob | MediaSource) {
+    updateProfilePicture(payload: Blob | MediaSource): void {
       this.user.profilePicture = payload
     }
   }

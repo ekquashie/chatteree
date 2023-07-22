@@ -1,6 +1,6 @@
 <template>
   <main class="flex justify-center pt-24">
-    <div class="flex flex-col items-center w-2/6">
+    <div class="grid place-items-center w-full p-2 md:p-0 md:w-2/6">
       <ChattereeLogo/>
       <h1 class="mt-6">Help them identify you</h1>
       <div class="relative grid place-items-center mt-10 w-[240px] h-[240px] border rounded-full">
@@ -31,7 +31,10 @@
       </div>
       <div class="mt-10">
         <label class="thin">Your name</label>
-        <input v-model="name" type="email" class="input mt-1"/>
+        <div class="relative">
+          <p class="absolute top-5 right-5 text-sm font-thin text-gray-500">{{ nameLength }}</p>
+          <input v-model="name" type="email" class="input mt-1"/>
+        </div>
       </div>
       <SubmitButton text="Let's geauxxxx!" :button-action="createAccount" class="mt-10"/>
     </div>
@@ -39,13 +42,25 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue'
+import { characterLengthWatcher } from '../mixins/characterLengthWatcher'
+import { URLS } from '../constants/routes'
+import { useRouter } from 'vue-router'
+// Components import
 import ChattereeLogo from '../components/ChattereeLogo.vue'
-import { ref } from 'vue'
 import SubmitButton from '../components/SubmitButton.vue'
 
 const name = ref<string>('')
 const imageRef = ref<any>()
 const image = ref<object>({})
+const router = useRouter()
+
+const { characterLength: nameLength, updateCharacterLength } = characterLengthWatcher(18)
+
+// Watcher to track number of characters entered
+watch(name, (newValue) => {
+  updateCharacterLength(newValue)
+})
 
 const processImage = () => {
   image.value = {
@@ -56,11 +71,7 @@ const processImage = () => {
 }
 
 const createAccount = () => {
-
+  router.push(URLS.chat)
 }
 
 </script>
-
-<style scoped>
-
-</style>
