@@ -52,9 +52,24 @@
                 leave-to-class="transform scale-95 opacity-0"
             >
               <MenuItems
-                  class="absolute bottom-16 right-0 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-6 px-8"
+                  class="absolute flex justify-center items-center space-x-8 bottom-16 right-0 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-6 px-8"
               >
-                <div>Item</div>
+                <div>
+                  <ImageIcon/>
+                  <p class="uploads">Image</p>
+                </div>
+                <div>
+                  <AudioIcon/>
+                  <p class="uploads">Audio</p>
+                </div>
+                <div>
+                  <DocumentIcon/>
+                  <p class="uploads">Doc</p>
+                </div>
+                <div>
+                  <PersonIcon/>
+                  <p class="uploads">Contact</p>
+                </div>
               </MenuItems>
             </transition>
           </Menu>
@@ -83,7 +98,11 @@ import MicrophoneIcon from '../../components/icons/MicrophoneIcon.vue'
 import AttachmentIcon from '../../components/icons/AttachmentIcon.vue'
 import SendMessageIcon from '../../components/icons/SendMessageIcon.vue'
 import Message from '../../components/chat/Message.vue'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { Menu, MenuButton, MenuItems } from '@headlessui/vue'
+import ImageIcon from '../../components/icons/ImageIcon.vue'
+import AudioIcon from '../../components/icons/AudioIcon.vue'
+import DocumentIcon from '../../components/icons/DocumentIcon.vue'
+import PersonIcon from '../../components/icons/PersonIcon.vue'
 
 const authStore = useAuthStore()
 const chatStore = useChatStore()
