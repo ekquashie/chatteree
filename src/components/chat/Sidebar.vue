@@ -9,9 +9,9 @@
             <ChevronDownIcon/>
           </button>
         </div>
-        <div class="grid place-items-center rounded-full bg-black text-yellow-600 w-12 h-12">
+        <button class="grid place-items-center rounded-full bg-black text-yellow-600 w-12 h-12">
           <FeatherIcon icon-color="#F7E353"/>
-        </div>
+        </button>
       </div>
       <!--  Search Input  -->
       <div class="relative mt-4">
@@ -31,7 +31,29 @@
         <p class="text-[#79838B] text-sm">Favourite chatters</p>
         <p class="text-[#79838B] text-sm">{{ favouriteContacts.length + 18 }}</p>
       </div>
-      <div></div>
+      <!--      List of favourite chatterees    -->
+      <div class="relative flex space-x-3">
+        <button class="absolute left-0 bg-white rounded-full z-50 top-7">
+          <ChevronLeftIcon/>
+        </button>
+        <button class="absolute right-0 bg-white rounded-full z-50 top-7">
+          <ChevronRightIcon/>
+        </button>
+        <template v-for="(favouriteContact, index) in favouriteContacts" :key="index">
+          <div class="relative flex flex-col justify-center items-center space-y-[10px]">
+            <div v-show="favouriteContact.unreadMessages > 0"
+                 class="absolute grid place-items-center top-1 right-0 bg-[#F7E353] w-6 h-6 rounded-full">
+              <p class="text-xs">{{ favouriteContact.unreadMessages }}</p>
+            </div>
+            <img
+                :src="favouriteContact.profilePicture"
+                :alt="favouriteContact.contactName"
+                class="rounded-full w-14 h-14"/>
+            <p class="text-center text-xs">{{ favouriteContact.contactName.substring(0, 9) + '...' }}</p>
+          </div>
+        </template>
+      </div>
+      <!--      End of List of favourite chatterees    -->
     </div>
   </aside>
 </template>
@@ -45,6 +67,8 @@ import FeatherIcon from '../../components/icons/FeatherIcon.vue'
 import SearchIcon from '../icons/SearchIcon.vue'
 import ChevronDownIcon from '../../components/icons/ChevrondownIcon.vue'
 import ChatIcon from '../../components/icons/ChatIcon.vue'
+import ChevronLeftIcon from '../../components/icons/ChevronLeftIcon.vue'
+import ChevronRightIcon from '../../components/icons/ChevronRightIcon.vue'
 
 const authStore = useAuthStore()
 const chatStore = useChatStore()
