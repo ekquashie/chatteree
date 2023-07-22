@@ -1,9 +1,6 @@
 <template>
   <div class="relative flex flex-col space-y-[10px]">
-    <div v-show="favouriteContact.unreadMessages > 0"
-         class="absolute grid place-items-center top-1 right-0 bg-[#F7E353] w-6 h-6 rounded-full">
-      <p class="text-xs">{{ favouriteContact.unreadMessages }}</p>
-    </div>
+    <MessageCount class="absolute top-1 right-0" v-show="favouriteContact.unreadMessages > 0" :count="favouriteContact.unreadMessages"/>
     <img
         :src="favouriteContact.profilePicture"
         :alt="favouriteContact.contactName"
@@ -14,6 +11,7 @@
 
 <script setup lang="ts">
 import { createExcerpt } from '../../utils/easy'
+import MessageCount from '../../components/chat/MessageCount.vue'
 
 defineProps({
   favouriteContact: {}

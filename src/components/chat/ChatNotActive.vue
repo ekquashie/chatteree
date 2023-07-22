@@ -10,7 +10,7 @@
         <img src="../../assets/imgs/chat.png" height="296" width="296" alt="chat"/>
         <img src="../../assets/imgs/chat-union.png" height="140" width="80" class="absolute absolute right-8 -bottom-11" alt="chat-union"/>
       </div>
-      <p>We hear say your mouth die hmmm</p>
+      <p class="text-gray-400">We hear say your mouth die hmmm</p>
       <SubmitButton text="Start chatting" :button-action="() => {
         getChats();
         getFavouriteContacts();

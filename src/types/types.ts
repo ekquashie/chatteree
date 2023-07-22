@@ -14,6 +14,9 @@ export interface RecentChat {
   lastMessage: string
   timeStamp: string
   unreadMessages: number
+  lastSeen?: string
+  recipient_id: string
+  isRead: boolean
 }
 
 export interface Contact {

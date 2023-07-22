@@ -21,11 +21,12 @@ export const useChatStore = defineStore('chat-store', {
     getChats () {
       this.chats = recentChats
     },
-    getCurrentChat () {
-      this.currentChat = messages.filter((message: Message) => message.sender_id === this.selectedContact?.contact_id || message.recipient_id === this.selectedContact?.contact_id)
+    getCurrentChat (contactId: string) {
+      this.currentChat = messages.filter((message: Message) => message.sender_id === contactId|| message.recipient_id === contactId)
     },
-    setSelectedContact (userId: string | number) {
-      this.selectedContact = contacts.filter((contact: Contact) => contact.contact_id === userId)[0]
+    setSelectedContact (contactId: string) {
+      console.log('changed')
+      this.selectedContact = contacts.filter((contact: Contact) => contact.contact_id === contactId)[0]
     },
     getFavouriteContacts () {
       this.favouriteContacts = contacts.filter((contact: Contact) => contact.isFavourite)

@@ -1,5 +1,5 @@
 <template>
-  <aside class="flex flex-col h-screen flex-1 min-w-[390px] border-r border-gray-100">
+  <aside class="flex flex-col h-full flex-1 min-w-[390px] border-r border-gray-100">
     <div class="px-6 pt-4">
       <div class="flex items-center justify-between">
         <div class="flex justify-center items-center space-x-4">
@@ -26,7 +26,7 @@
       <p class="text-gray-300 mt-4 text-center">Your chatteree conversations live here</p>
     </div>
     <!--    Favourite Chatters  -->
-    <div v-else>
+    <div v-else class="w-full overflow-y-scroll">
       <div class="flex justify-between items-center px-6 mt-6">
         <p class="text-[#79838B] text-sm">Favourite chatters</p>
         <p class="text-[#79838B] text-sm">{{ favouriteContacts.length + 18 }}</p>
@@ -44,9 +44,12 @@
         </template>
       </div>
       <!--      End of List of favourite chatterees    -->
-      <!--      Recent chats    -->
-      <div class="overflow-y-auto">
 
+      <!--      Recent chats    -->
+      <div class="border-t border-gray-100">
+        <template v-for="(chat, index) in chats" :key="index">
+          <RecentChat :chat="chat"/>
+        </template>
       </div>
     </div>
   </aside>
@@ -64,10 +67,11 @@ import ChatIcon from '../../components/icons/ChatIcon.vue'
 import ChevronLeftIcon from '../../components/icons/ChevronLeftIcon.vue'
 import ChevronRightIcon from '../../components/icons/ChevronRightIcon.vue'
 import FavouriteContact from '../../components/chat/FavouriteContact.vue'
+import RecentChat from '../../components/chat/RecentChat.vue'
 
 const authStore = useAuthStore()
 const chatStore = useChatStore()
-const { user } = storeToRefs(authStore)
+const { user } = authStore
 const { chats, favouriteContacts } = storeToRefs(chatStore)
 
 </script>
