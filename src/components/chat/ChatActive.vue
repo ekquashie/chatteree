@@ -54,9 +54,7 @@
               <MenuItems
                   class="absolute bottom-16 right-0 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-6 px-8"
               >
-                <MenuItem>
-
-                </MenuItem>
+                <div>Item</div>
               </MenuItems>
             </transition>
           </Menu>

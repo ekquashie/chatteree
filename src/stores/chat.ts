@@ -28,7 +28,7 @@ export const useChatStore = defineStore('chat-store', {
         })
       this.chats = [...this.chats].map((chat: RecentChat) => {
         if(chat.contact_id === this.selectedContact?.contact_id)
-          return { ...chat, isRead: true }
+          return { ...chat, isRead: true, unreadMessages: 0 }
         return chat
       })
     },
