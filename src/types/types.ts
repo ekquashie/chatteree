@@ -22,4 +22,5 @@ export interface Contact {
   unreadMessages: number
   isFavourite: boolean
   contactName: string
+  lastSeen?: string
 }

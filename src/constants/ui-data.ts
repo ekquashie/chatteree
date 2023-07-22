@@ -4,6 +4,14 @@ export const recentChats: RecentChat[] = [
   {
     contact_id: '1',
     profilePic: 'profile-pic-url-1',
+    contactName: 'Mullah',
+    lastMessage: 'Hello there!',
+    timeStamp: '8:46am',
+    unreadMessages: 3
+  },
+  {
+    contact_id: '1',
+    profilePic: 'profile-pic-url-1',
     contactName: 'Dexter Quaye',
     lastMessage: 'Hello there!',
     timeStamp: '2023-07-15 10:30',
@@ -109,11 +117,19 @@ export const recentChats: RecentChat[] = [
 
 export const contacts: Contact[] = [
   {
+    'contact_id': '1',
+    'profilePicture': '',
+    'unreadMessages': 0,
+    'isFavourite': false,
+    'contactName': 'Mullah',
+    'lastSeen': 'online'
+  },
+  {
     'contact_id': '2',
     'profilePicture': 'profile-pic-url-2',
     'unreadMessages': 2,
     'isFavourite': false,
-    'contactName': 'Patricia Addai'
+    'contactName': 'Patricia Addai',
   },
   {
     'contact_id': '3',
@@ -179,21 +195,22 @@ export const contacts: Contact[] = [
     'contactName': 'Abena'
   },
   {
-    'contact_id': '1',
+    'contact_id': '12',
     'profilePicture': 'src/assets/imgs/contacts/dexterquaye.png',
     'unreadMessages': 0,
     'isFavourite': true,
-    'contactName': 'Dexter Quaye'
+    'contactName': 'Dexter Quaye',
+    'lastSeen': 'About 2 hours ago'
   },
   {
-    'contact_id': '12',
+    'contact_id': '13',
     'profilePicture': 'src/assets/imgs/contacts/selase.png',
     'unreadMessages': 0,
     'isFavourite': true,
     'contactName': 'Selase'
   },
   {
-    'contact_id': '13',
+    'contact_id': '14',
     'profilePicture': 'src/assets/imgs/contacts/ericasackey.png',
     'unreadMessages': 0,
     'isFavourite': true,

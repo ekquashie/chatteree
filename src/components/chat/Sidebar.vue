@@ -32,28 +32,22 @@
         <p class="text-[#79838B] text-sm">{{ favouriteContacts.length + 18 }}</p>
       </div>
       <!--      List of favourite chatterees    -->
-      <div class="relative flex space-x-3">
-        <button class="absolute left-0 bg-white rounded-full z-50 top-7">
+      <div class="relative flex mx-6 mt-4 space-x-3">
+        <button class="absolute left-0 grid place-items-center bg-white w-8 h-8 rounded-full z-50 top-7">
           <ChevronLeftIcon/>
         </button>
-        <button class="absolute right-0 bg-white rounded-full z-50 top-7">
+        <button class="absolute right-0 grid place-items-center bg-white w-8 h-8 rounded-full z-50 top-7">
           <ChevronRightIcon/>
         </button>
         <template v-for="(favouriteContact, index) in favouriteContacts" :key="index">
-          <div class="relative flex flex-col justify-center items-center space-y-[10px]">
-            <div v-show="favouriteContact.unreadMessages > 0"
-                 class="absolute grid place-items-center top-1 right-0 bg-[#F7E353] w-6 h-6 rounded-full">
-              <p class="text-xs">{{ favouriteContact.unreadMessages }}</p>
-            </div>
-            <img
-                :src="favouriteContact.profilePicture"
-                :alt="favouriteContact.contactName"
-                class="rounded-full w-14 h-14"/>
-            <p class="text-center text-xs">{{ favouriteContact.contactName.substring(0, 9) + '...' }}</p>
-          </div>
+          <FavouriteContact :favourite-contact="favouriteContact"/>
         </template>
       </div>
       <!--      End of List of favourite chatterees    -->
+      <!--      Recent chats    -->
+      <div class="overflow-y-auto">
+
+      </div>
     </div>
   </aside>
 </template>
@@ -69,6 +63,7 @@ import ChevronDownIcon from '../../components/icons/ChevrondownIcon.vue'
 import ChatIcon from '../../components/icons/ChatIcon.vue'
 import ChevronLeftIcon from '../../components/icons/ChevronLeftIcon.vue'
 import ChevronRightIcon from '../../components/icons/ChevronRightIcon.vue'
+import FavouriteContact from '../../components/chat/FavouriteContact.vue'
 
 const authStore = useAuthStore()
 const chatStore = useChatStore()
