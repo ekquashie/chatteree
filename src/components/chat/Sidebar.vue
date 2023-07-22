@@ -3,13 +3,18 @@
     <div class="px-6 pt-4">
       <div class="flex items-center justify-between">
         <div class="flex justify-center items-center space-x-4">
-          <img src="../../assets/imgs/upload-default.png" alt="profile-picture" class="w-12 h-12"/>
+          <img :src="authStore.getProfilePicture" alt="profile-picture" class="rounded-full w-12 h-12"/>
           <button class="flex justify-center items-center">
-            Kojo Trip
+            {{ user.name }}
             <ChevronDownIcon/>
           </button>
         </div>
-        <button class="grid place-items-center rounded-full bg-black text-yellow-600 w-12 h-12">
+        <button
+            @click="() => {
+              getChats()
+              getFavouriteContacts()
+            }"
+            class="grid place-items-center rounded-full bg-black text-yellow-600 w-12 h-12">
           <FeatherIcon icon-color="#F7E353"/>
         </button>
       </div>
@@ -71,7 +76,8 @@ import RecentChat from '../../components/chat/RecentChat.vue'
 
 const authStore = useAuthStore()
 const chatStore = useChatStore()
-const { user } = authStore
+const { user } = storeToRefs(authStore)
 const { chats, favouriteContacts } = storeToRefs(chatStore)
+const { getChats, getFavouriteContacts } = chatStore
 
 </script>

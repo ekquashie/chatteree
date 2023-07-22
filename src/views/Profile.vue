@@ -46,6 +46,7 @@ import { ref, watch } from 'vue'
 import { characterLengthWatcher } from '../mixins/characterLengthWatcher'
 import { URLS } from '../constants/routes'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
 // Components import
 import ChattereeLogo from '../components/ChattereeLogo.vue'
 import SubmitButton from '../components/SubmitButton.vue'
@@ -54,6 +55,8 @@ const name = ref<string>('')
 const imageRef = ref<any>()
 const image = ref<object>({})
 const router = useRouter()
+const authStore = useAuthStore()
+const { updateProfilePicture, updateName } = authStore
 
 const { characterLength: nameLength, updateCharacterLength } = characterLengthWatcher(18)
 
@@ -71,7 +74,8 @@ const processImage = () => {
 }
 
 const createAccount = () => {
+  updateProfilePicture(imageRef.value.files[0])
+  updateName(name.value)
   router.push(URLS.chat)
 }
-
 </script>

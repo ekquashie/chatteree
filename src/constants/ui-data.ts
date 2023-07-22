@@ -211,9 +211,9 @@ export const contacts: Contact[] = [
   }
 ]
 
-
 export const messages: Message[] = [
   {
+    message_id: '1',
     type: 'text',
     content: 'I finish oo I dey office',
     timestamp: '4:37pm',
@@ -222,6 +222,7 @@ export const messages: Message[] = [
     isRead: true
   },
   {
+    message_id: '2',
     type: 'text',
     content: 'Man',
     timestamp: '4:40pm',
@@ -230,6 +231,7 @@ export const messages: Message[] = [
     isRead: true
   },
   {
+    message_id: '3',
     type: 'text',
     content: 'Me too I almost finish so give me some few minutes',
     timestamp: '4:40pm',
@@ -238,6 +240,7 @@ export const messages: Message[] = [
     isRead: true
   },
   {
+    message_id: '4',
     type: 'text',
     content: 'Tonight you for make I chop something oo I dey die lol',
     timestamp: '4:48pm',
@@ -246,6 +249,7 @@ export const messages: Message[] = [
     isRead: true
   },
   {
+    message_id: '5',
     type: 'text',
     content: 'Lmao make I think',
     timestamp: '4:48pm',
@@ -254,6 +258,7 @@ export const messages: Message[] = [
     isRead: true
   },
   {
+    message_id: '6',
     type: 'text',
     content: 'I dey gate',
     timestamp: '4:54pm',
@@ -262,6 +267,7 @@ export const messages: Message[] = [
     isRead: true
   },
   {
+    message_id: '7',
     type: 'text',
     content: 'You for look sharp make we go see am before the day go end else la wu',
     timestamp: '5:08pm',
@@ -270,6 +276,7 @@ export const messages: Message[] = [
     isRead: true
   },
   {
+    message_id: '8',
     type: 'text',
     content: 'He sef he dey slow we pass. He for open ein mind for we',
     timestamp: '4:50pm',
@@ -278,6 +285,7 @@ export const messages: Message[] = [
     isRead: true
   },
   {
+    message_id: '9',
     type: 'text',
     content: 'You understand',
     timestamp: '5:08pm',
@@ -286,11 +294,40 @@ export const messages: Message[] = [
     isRead: true
   },
   {
+    message_id: '10',
     type: 'text',
     content: 'I actually tell am. That be what I tell am but be like you too you for try talk to am then make we see',
     timestamp: '4:50pm',
     sender_id: '15',
     recipient_id: '1',
     isRead: true
+  },
+  {
+    message_id: '11',
+    type: 'text',
+    content: 'You listen am? What do you think?',
+    timestamp: '7:16pm',
+    sender_id: '2',
+    recipient_id: '15',
+    isRead: true
+  },
+  {
+    message_id: '12',
+    type: 'image',
+    content: 'src/assets/imgs/chats/thumbs-up.png',
+    timestamp: '4:40pm',
+    sender_id: '15',
+    recipient_id: '2',
+    isRead: true
+  },
+  {
+    message_id: '13',
+    type: 'text',
+    content: 'You want make we go spoil there?',
+    timestamp: '7:16pm',
+    sender_id: '2',
+    recipient_id: '15',
+    isRead: true
   }
-]
+  // ... (other messages)
+];

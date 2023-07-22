@@ -12,25 +12,26 @@ export const useAuthStore = defineStore('auth-store', {
       email: '',
       chattereeId: '',
       name: '',
-      profilePicture: null
+      profilePicture: {}
     }
   }),
 
   getters: {
-    getProfilePicture: (state): string => URL.createObjectURL(state.user.profilePicture)
+    getProfilePicture: (state): string | null => state?.user?.profilePicture.size ? URL.createObjectURL(state?.user?.profilePicture) : null
   },
 
   actions: {
-    updateEmail(payload: string): void {
+    updateEmail (payload: string): void {
       this.user.email = payload
     },
-    updateChattereeId(payload: string): void {
-      this.user.email = payload
+    updateChattereeId (payload: string): void {
+      this.user.chattereeId = payload
+
     },
-    updateName(payload: string): void {
+    updateName (payload: string): void {
       this.user.name = payload
     },
-    updateProfilePicture(payload: Blob | MediaSource): void {
+    updateProfilePicture (payload: Blob | MediaSource): void {
       this.user.profilePicture = payload
     }
   }

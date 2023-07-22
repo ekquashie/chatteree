@@ -22,10 +22,17 @@ export const useChatStore = defineStore('chat-store', {
       this.chats = recentChats
     },
     getCurrentChat (contactId: string) {
-      this.currentChat = messages.filter((message: Message) => message.sender_id === contactId|| message.recipient_id === contactId)
+      this.currentChat = messages.filter((message: Message) => message.sender_id === contactId || message.recipient_id === contactId)
+        .map((message: Message) => {
+          return { ...message, isRead: true }
+        })
+      this.chats = [...this.chats].map((chat: RecentChat) => {
+        if(chat.contact_id === this.selectedContact?.contact_id)
+          return { ...chat, isRead: true }
+        return chat
+      })
     },
     setSelectedContact (contactId: string) {
-      console.log('changed')
       this.selectedContact = contacts.filter((contact: Contact) => contact.contact_id === contactId)[0]
     },
     getFavouriteContacts () {

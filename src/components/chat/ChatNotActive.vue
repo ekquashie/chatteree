@@ -2,7 +2,7 @@
   <section class="relative grid place-items-center h-full w-full">
     <div class="absolute top-20 left-6">
       <p class="thin text-black">Welcome</p>
-      <h1 class="font-bold">Kojo Trip!</h1>
+      <h1 class="font-bold">{{ user.name }}!</h1>
     </div>
     <div class="grid place-items-center space-y-8">
       <div class="relative min-w-[314px] grid place-items-center mb-8">
@@ -24,9 +24,13 @@
 <script setup lang="ts">
 import SubmitButton from '../../components/SubmitButton.vue'
 import FeatherIcon from '../../components/icons/FeatherIcon.vue'
+import { storeToRefs } from 'pinia'
 import { useChatStore } from '../../stores/chat'
+import { useAuthStore } from '../../stores/auth'
 
+const authStore = useAuthStore()
 const chatStore = useChatStore()
+const { user } = storeToRefs(authStore)
 const { getChats, getFavouriteContacts } = chatStore
 </script>
 
