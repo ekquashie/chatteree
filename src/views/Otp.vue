@@ -38,13 +38,14 @@
 
 <script setup lang="ts">
 //Import Components
-import ChattereeLogo from '../components/ChattereeLogo.vue'
-import BackButton from '../components/BackButton.vue'
-import SubmitButton from '../components/SubmitButton.vue'
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { storeToRefs } from 'pinia'
+import { URLS } from '../constants/routes'
+import ChattereeLogo from '../components/ChattereeLogo.vue'
+import BackButton from '../components/BackButton.vue'
+import SubmitButton from '../components/SubmitButton.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -76,7 +77,7 @@ function verifyOtp (): void {
   if (!otpError) {
     if (otpArray.value.join('') === otp.value) {
       updateEmail(email.value)
-      router.push('/chatteree-id')
+      router.push(URLS.chattereeId)
     } else {
       console.log('Invalid OTP')
     }
