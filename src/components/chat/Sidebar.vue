@@ -21,7 +21,7 @@
       <!--  Search Input  -->
       <div class="relative mt-4">
         <SearchIcon class="absolute top-4 left-4"/>
-        <input type="search" class="input mt-1 pl-12 thin" placeholder="Search for chatter or message"/>
+        <input @keyup="handleSearch($event.target.value)" type="search" class="input mt-1 pl-12 thin" placeholder="Search for chatter or message"/>
       </div>
     </div>
 
@@ -78,6 +78,6 @@ const authStore = useAuthStore()
 const chatStore = useChatStore()
 const { user } = storeToRefs(authStore)
 const { chats, favouriteContacts } = storeToRefs(chatStore)
-const { getChats, getFavouriteContacts } = chatStore
+const { getChats, getFavouriteContacts, handleSearch } = chatStore
 
 </script>

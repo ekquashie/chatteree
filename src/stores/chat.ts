@@ -21,7 +21,7 @@ export const useChatStore = defineStore('chat-store', {
     getChats () {
       this.chats = recentChats
     },
-    getCurrentChat (contactId: string) {
+    getCurrentChat (contactId: string): void {
       this.currentChat = messages.filter((message: Message) => message.sender_id === contactId || message.recipient_id === contactId)
         .map((message: Message) => {
           return { ...message, isRead: true }
@@ -32,11 +32,20 @@ export const useChatStore = defineStore('chat-store', {
         return chat
       })
     },
-    setSelectedContact (contactId: string) {
+    setSelectedContact (contactId: string): void {
       this.selectedContact = contacts.filter((contact: Contact) => contact.contact_id === contactId)[0]
     },
-    getFavouriteContacts () {
+    getFavouriteContacts (): void {
       this.favouriteContacts = contacts.filter((contact: Contact) => contact.isFavourite)
+    },
+    handleSearch (keyword: string): void {
+      if(keyword !== '') {
+        this.chats = recentChats.filter((chat: RecentChat) => {
+          return chat.contactName.toLowerCase().includes(keyword.toLowerCase())
+        })
+      } else {
+        this.chats = recentChats
+      }
     }
   }
 })
