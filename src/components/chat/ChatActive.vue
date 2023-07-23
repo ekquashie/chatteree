@@ -25,7 +25,10 @@
            class="flex w-full space-x-2 py-1" :key="index">
         <img v-if="message.sender_id !== '15'" :src="selectedContact?.profilePicture" class="rounded-full w-8 h-8"
              alt="profile-picture"/>
-        <Message :message="message"/>
+        <div class="flex items-end">
+          <SendIcon v-show="message.sender_id === '15'" color="#289DFE"/>
+          <Message :message="message"/>
+        </div>
         <img v-if="message.sender_id === '15'" :src="getProfilePicture" class="rounded-full w-8 h-8"
              alt="profile-picture-me"/>
       </div>
@@ -39,6 +42,7 @@
           <div class="cursor-pointer hover:bg-[#F1F1F1] grid place-items-center w-10 h-10 rounded-full">
             <SmileyIcon class="cursor-pointer w-6 h-6"/>
           </div>
+          <!--   Uploads   -->
           <Menu as="div" class="cursor-pointer hover:bg-[#F1F1F1] grid place-items-center w-10 h-10 rounded-full">
             <MenuButton>
               <AttachmentIcon class="w-6 h-6"/>
@@ -52,11 +56,24 @@
                 leave-to-class="transform scale-95 opacity-0"
             >
               <MenuItems
-                  class="absolute bottom-16 right-0 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-6 px-8"
+                  class="absolute flex justify-center items-center space-x-8 bottom-16 right-0 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-6 px-8"
               >
-                <MenuItem>
-
-                </MenuItem>
+                <div>
+                  <ImageIcon/>
+                  <p class="uploads">Image</p>
+                </div>
+                <div>
+                  <AudioIcon/>
+                  <p class="uploads">Audio</p>
+                </div>
+                <div>
+                  <DocumentIcon/>
+                  <p class="uploads">Doc</p>
+                </div>
+                <div>
+                  <PersonIcon/>
+                  <p class="uploads">Contact</p>
+                </div>
               </MenuItems>
             </transition>
           </Menu>
@@ -65,9 +82,9 @@
           </div>
         </div>
       </div>
-    <div class="bg-[#101C26] w-fit rounded-full p-3">
-      <SendMessageIcon class="w-6 h-6" color="white"/>
-    </div>
+      <div class="bg-[#101C26] w-fit rounded-full p-3">
+        <SendMessageIcon class="w-6 h-6" color="white"/>
+      </div>
     </div>
   </section>
 </template>
@@ -76,6 +93,7 @@
 import { storeToRefs } from 'pinia'
 import { useChatStore } from '../../stores/chat'
 import { useAuthStore } from '../../stores/auth'
+import { Menu, MenuButton, MenuItems } from '@headlessui/vue'
 // Components import
 import FavouriteIcon from '../../components/icons/FavouriteIcon.vue'
 import FavouriteIconFill from '../../components/icons/FavouriteIconFill.vue'
@@ -84,8 +102,12 @@ import SmileyIcon from '../../components/icons/SmileyIcon.vue'
 import MicrophoneIcon from '../../components/icons/MicrophoneIcon.vue'
 import AttachmentIcon from '../../components/icons/AttachmentIcon.vue'
 import SendMessageIcon from '../../components/icons/SendMessageIcon.vue'
+import SendIcon from '../../components/icons/SendIcon.vue'
 import Message from '../../components/chat/Message.vue'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import ImageIcon from '../../components/icons/ImageIcon.vue'
+import AudioIcon from '../../components/icons/AudioIcon.vue'
+import DocumentIcon from '../../components/icons/DocumentIcon.vue'
+import PersonIcon from '../../components/icons/PersonIcon.vue'
 
 const authStore = useAuthStore()
 const chatStore = useChatStore()

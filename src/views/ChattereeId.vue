@@ -8,10 +8,22 @@
         <label class="thin">Chatteree ID</label>
         <div class="relative">
           <h3 class="absolute top-4 left-6 text-gray-300">@</h3>
-          <p v-if="showCount" class="absolute top-5 right-5 text-sm font-thin text-gray-500">{{ chattereeIdLength }}</p>
-          <p v-else class="absolute top-5 right-5 text-sm font-thin text-gray-500">{{ chattereeIdLength }}</p>
+          <p v-if="chattereeIdValidation === false && !loading"
+             class="absolute top-5 right-5 text-sm font-thin text-gray-500">
+            {{ chattereeIdLength }}</p>
+          <CircularProgressIndicator v-if="loading"
+             class="absolute top-5 right-5 text-sm font-thin text-gray-500"/>
+          <CheckIcon
+              v-if="chattereeIdValidation === 'passed' && !loading"
+              class="absolute top-4 right-5 w-6 h-6"/>
+          <CloseCircleIcon
+              v-else-if="chattereeIdValidation === 'failed' && !loading"
+              class="absolute top-4 right-5 w-6 h-6"/>
           <input
-              @keyup="validateChattereeId"
+              @keyup="() => {
+                    loading = true
+                    validateChattereeIdDebounced()
+              }"
               maxlength="10"
               v-model="chattereeId"
               class="input mt-1 pl-12 font-bold text-xl"/>
@@ -26,21 +38,29 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { string } from 'yup'
+import { useRouter } from 'vue-router'
+import { URLS } from '../constants/routes'
+import _ from 'lodash'
+// Mixin
+import { characterLengthWatcher } from '../mixins/characterLengthWatcher'
 //  Store
 import { useAuthStore } from '../stores/auth'
 // Components Import
 import ChattereeLogo from '../components/ChattereeLogo.vue'
 import SubmitButton from '../components/SubmitButton.vue'
-import { characterLengthWatcher } from '../mixins/characterLengthWatcher'
-import { string } from 'yup'
-import { useRouter } from 'vue-router'
-import { URLS } from '../constants/routes'
+import CheckIcon from '../components/icons/CheckIcon.vue'
+import CloseCircleIcon from '../components/icons/CloseCircleIcon.vue'
+import CircularProgressIndicator from '../components/CircularProgressIndicator.vue'
 
-const showCount = ref<boolean>(true)
 const chattereeId = ref<string>('')
+const chattereeIdValidation = ref<boolean | string>(false)
+const loading = ref<boolean>(false)
+
 const router = useRouter()
 const authStore = useAuthStore()
 const { updateChattereeId } = authStore
+const validateChattereeIdDebounced = _.debounce(validateChattereeId, 300)
 
 const { characterLength: chattereeIdLength, updateCharacterLength } = characterLengthWatcher(10)
 
@@ -50,17 +70,26 @@ watch(chattereeId, (newValue) => {
 })
 
 // chatteree id validation schema
-const chattereeIdSchema = string().min(10).max(10).required()
+const chattereeIdSchema = string()
+    .min(10, 'Enter minimum required characters')
+    .max(10)
+    .required('Chatteree ID is required')
 
-// Check if chatteree id meets number of required characters
-const validateChattereeId = async (e: KeyboardEvent) => {
+// validate chatteree id based on schema provided
+async function validateChattereeId () {
   try {
     await chattereeIdSchema.validate(chattereeId.value)
-    return false
+    chattereeIdValidation.value = 'passed'
   } catch (err: any) {
-    return true
+    chattereeIdValidation.value = 'failed'
+  } finally {
+    loading.value = false
+    if (chattereeId.value.length === 0) {
+      chattereeIdValidation.value = false
+    }
   }
 }
+
 
 const submit = () => {
   console.log('submitted')

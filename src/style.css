@@ -63,7 +63,9 @@
     .btn {
         @apply bg-blackPearl text-textYellow rounded-[32px] py-4 px-6;
     }
-
+    .uploads {
+        @apply font-thin text-center text-xs
+    }
 }
 
 @layer utilities {
