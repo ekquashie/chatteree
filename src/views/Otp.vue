@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 //Import Components
-import { onMounted, ref } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { storeToRefs } from 'pinia'
@@ -69,6 +69,9 @@ const authStore = useAuthStore()
 const { otp } = storeToRefs(authStore)
 const { updateEmail } = authStore
 
+// Inject method to invoke toast
+const toast = inject<((text: string, type: string) => void)>('toast')
+
 function resendOtp (): void {
   alert(`OTP is ${otp.value}`)
 }
@@ -79,6 +82,7 @@ function verifyOtp (): void {
       updateEmail(email.value)
       router.push(URLS.chattereeId)
     } else {
+      toast?.('Invalid confirmation code', 'error')
       console.log('Invalid OTP')
     }
   }
