@@ -83,7 +83,6 @@ function verifyOtp (): void {
       router.push(URLS.chattereeId)
     } else {
       toast?.('Invalid confirmation code', 'error')
-      console.log('Invalid OTP')
     }
   }
 }
