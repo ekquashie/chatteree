@@ -12,7 +12,7 @@
              class="absolute top-5 right-5 text-sm font-thin text-gray-500">
             {{ chattereeIdLength }}</p>
           <CircularProgressIndicator v-if="loading"
-             class="absolute top-5 right-5 text-sm font-thin text-gray-500"/>
+                                     class="absolute top-5 right-5 text-sm font-thin text-gray-500"/>
           <CheckIcon
               v-if="chattereeIdValidation === 'passed' && !loading"
               class="absolute top-4 right-5 w-6 h-6"/>
@@ -54,7 +54,7 @@ import CloseCircleIcon from '../components/icons/CloseCircleIcon.vue'
 import CircularProgressIndicator from '../components/CircularProgressIndicator.vue'
 
 const chattereeId = ref<string>('')
-const chattereeIdValidation = ref<boolean | string>(false)
+const chattereeIdValidation = ref<boolean | 'passed' | 'failed'>(false)
 const loading = ref<boolean>(false)
 
 const router = useRouter()
@@ -90,11 +90,11 @@ async function validateChattereeId () {
   }
 }
 
-
 const submit = () => {
-  console.log('submitted')
-  // update chatteree id in store
-  updateChattereeId(chattereeId.value)
-  router.push(URLS.profile)
+  if (chattereeIdValidation.value === 'passed') {
+    // update chatteree id in store
+    updateChattereeId(chattereeId.value)
+    router.push(URLS.profile)
+  }
 }
 </script>
