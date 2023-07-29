@@ -10,13 +10,14 @@
         <p class="thin">Enter your email address to start chatting</p>
         <div class="mt-10">
           <label class="thin">Email address</label>
-            <input @keyup="validateEmail" v-model="email" type="email" class="input mt-1"/>
-            <span class="text-red-600 text-xs mt-1">{{ errorMessage }}</span>
+          <input @keyup="validateEmail" v-model="email" type="email" class="input mt-1"/>
+          <span class="text-red-600 text-xs mt-1">{{ errorMessage }}</span>
         </div>
         <div class="mt-6 space-y-6 flex flex-col justify-end items-end">
           <SubmitButton text="Next" :button-action="sendOtp"/>
           <hr class="w-full border-gray-100"/>
           <button
+              @click="googleSignIn"
               class="flex justify-center items-center space-x-4 rounded-full w-full border border-1 py-3">
             <img src="src/assets/imgs/google-icon.png" alt="google-icon" class="w-6 h-6"/>
             <span>Continue with Google</span>
@@ -28,17 +29,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { inject, ref } from 'vue'
 import { string } from 'yup'
 import { URLS } from '../constants/routes'
 // Components Import
 import ChattereeLogo from '../components/ChattereeLogo.vue'
 import SubmitButton from '../components/SubmitButton.vue'
 import { useRouter } from 'vue-router'
+import { googleOneTap } from 'vue3-google-login'
+import { decodeCredential } from 'vue3-google-login'
 
 const email = ref<string>('')
 const errorMessage = ref<string>('')
 const router = useRouter()
+
+// Inject method to invoke toast
+const toast = inject<((text: string, type: string) => void)>('toast')
 
 // Email validation schema
 const emailSchema = string().email('Please enter a valid email address').required('Please enter your email address')
@@ -61,5 +67,19 @@ async function sendOtp (): Promise<void> {
   if (!error) {
     await router.push({ path: URLS.otp, query: { q: btoa(email.value) } })
   }
+}
+
+async function googleSignIn (): Promise<void> {
+  await googleOneTap()
+      .then((response) => {
+        // This promise is resolved when user selects an account from the One Tap prompt
+        console.log('Handle the response', response)
+        const userData = decodeCredential(response.credential)
+        console.log(userData)
+        // router.push({ path: URLS.otp, query: { q: btoa(email.value) } })
+      })
+      .catch(() => {
+        toast?.('Error attempting login. Please try again later', 'error')
+      })
 }
 </script>
