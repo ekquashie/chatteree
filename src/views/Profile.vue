@@ -33,7 +33,8 @@
         <label class="thin">Your name</label>
         <div class="relative">
           <p class="absolute top-5 right-5 text-sm font-thin text-gray-500">{{ nameLength }}</p>
-          <input v-model="name" type="email" class="input mt-1"/>
+          <input @keyup="validateName" v-model="name" type="email" class="input mt-1"/>
+          <p class="text-red-600 text-xs mt-1">{{ errorMessage }}</p>
         </div>
       </div>
       <SubmitButton text="Let's geauxxxx!" :button-action="createAccount" class="mt-10"/>
@@ -47,18 +48,26 @@ import { characterLengthWatcher } from '../mixins/characterLengthWatcher'
 import { URLS } from '../constants/routes'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import { inject } from 'vue'
 // Components import
 import ChattereeLogo from '../components/ChattereeLogo.vue'
 import SubmitButton from '../components/SubmitButton.vue'
+import { string } from 'yup'
 
 const name = ref<string>('')
+const errorMessage = ref<string>('')
 const imageRef = ref<any>()
 const image = ref<object>({})
 const router = useRouter()
 const authStore = useAuthStore()
 const { updateProfilePicture, updateName } = authStore
 
+// Inject method to invoke toast
+const toast = inject<((text: string, type: string) => void)>('toast')
+
 const { characterLength: nameLength, updateCharacterLength } = characterLengthWatcher(18)
+
+const nameSchema = string().required('Please enter your full name')
 
 // Watcher to track number of characters entered
 watch(name, (newValue) => {
@@ -73,9 +82,25 @@ const processImage = () => {
   }
 }
 
-const createAccount = () => {
-  updateProfilePicture(imageRef.value.files[0])
-  updateName(name.value)
-  router.push(URLS.chat)
+async function validateName (): Promise<boolean> {
+  try {
+    await nameSchema.validate(name.value)
+    errorMessage.value = ''
+    return false
+  } catch (err: any) {
+    errorMessage.value = err.errors[0]
+    return true
+  }
+}
+
+const createAccount = async () => {
+  const error = await validateName()
+  if(imageRef.value.files[0] && !error) {
+    updateProfilePicture(imageRef.value.files[0])
+    updateName(name.value)
+    await router.push(URLS.chat)
+  } else {
+    toast?.('Please enter your full name and upload your profile picture', 'error')
+  }
 }
 </script>

@@ -9,6 +9,6 @@
 
 <script setup lang="ts">
 defineProps({
-  message: Object
+  message: Object as any
 })
 </script>
