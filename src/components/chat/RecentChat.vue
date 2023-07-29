@@ -39,6 +39,6 @@ const chatStore = useChatStore()
 const { setSelectedContact, getCurrentChat } = chatStore
 
 defineProps({
-  chat: Object
+  chat: Object as any
 })
 </script>
