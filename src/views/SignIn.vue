@@ -71,15 +71,12 @@ async function sendOtp (): Promise<void> {
 
 async function googleSignIn (): Promise<void> {
   await googleOneTap()
-      .then((response) => {
-        // This promise is resolved when user selects an account from the One Tap prompt
-        console.log('Handle the response', response)
-        const userData = decodeCredential(response.credential)
-        console.log(userData)
-        // router.push({ path: URLS.otp, query: { q: btoa(email.value) } })
+      .then(async (response) => {
+        const userData = await decodeCredential(response.credential) as any
+        await router.push({ path: URLS.otp, query: { q: btoa(userData.email) } })
       })
       .catch(() => {
-        toast?.('Error attempting login. Please try again later', 'error')
+        toast?.('There was an issue. Please try again later', 'error')
       })
 }
 </script>
