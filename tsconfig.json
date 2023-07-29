@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["lodash"],
+    "types": ["lodash", "node"],
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
